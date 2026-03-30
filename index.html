@@ -10,8 +10,13 @@
             margin-top: 100px;
             background-color: #f4f4f4;
         }
-        h1 {
-            color: #333;
+        table {
+            margin: auto;
+            border-collapse: collapse;
+        }
+        td, th {
+            border: 1px solid #333;
+            padding: 8px;
         }
         button {
             padding: 10px 20px;
@@ -24,11 +29,43 @@
     </style>
 </head>
 <body>
-    <h1>Bienvenue dans mon app Node.js 🚀</h1>
-    <p>Ceci est une application avec une seule page</p>
 
-    <button onclick="alert('Ça marche ! 🎉')">
-        Clique moi
-    </button>
+<h1>Bienvenue dans mon app Node.js 🚀</h1>
+<p>Les utilisateurs viennent de la base de données</p>
+
+<button onclick="loadUsers()">Afficher les utilisateurs</button>
+
+<table id="usersTable">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<script>
+function loadUsers() {
+    fetch('/users')
+        .then(res => res.json())
+        .then(data => {
+            const tbody = document.querySelector('#usersTable tbody');
+            tbody.innerHTML = '';
+
+            data.forEach(user => {
+                const row = `<tr>
+                    <td>${user.id}</td>
+                    <td>${user.nom}</td>
+                    <td>${user.email}</td>
+                </tr>`;
+                tbody.innerHTML += row;
+            });
+        })
+        .catch(err => alert("Erreur de récupération des données"));
+}
+</script>
+
 </body>
 </html>
