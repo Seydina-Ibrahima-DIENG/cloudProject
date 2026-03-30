@@ -7,7 +7,7 @@ const PORT = 3000;
 
 // Connexion à la base de données (VM2)
 const db = mysql.createPool({
-    host: '192.168.100.20', // IP de la VM base de données
+    host: '192.168.10.10', // IP de la VM base de données
     user: 'nodeuser',
     password: 'password',
     database: 'cloud_project'
